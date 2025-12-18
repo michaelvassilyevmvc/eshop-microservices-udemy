@@ -6,6 +6,7 @@ builder.Services.AddMediatR(config =>
 {
     config.RegisterServicesFromAssembly(assymbly);
     config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+    config.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
 builder.Services.AddValidatorsFromAssembly(assymbly);
 builder.Services.AddCarter();
@@ -18,9 +19,6 @@ var app = builder.Build();
 // pipelines
 app.MapCarter();
 
-app.UseExceptionHandler(options =>
-{
-    
-});
+app.UseExceptionHandler(options => { });
 
 app.Run();
