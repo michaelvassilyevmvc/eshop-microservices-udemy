@@ -4,9 +4,9 @@ public record GetProductByCategoryQuery(string Category) : IQuery<GetProductByCa
 
 public record GetProductByCategoryResult(IEnumerable<Product> Products);
 
-internal class GetProductByCategoryHandler(
+internal class GetProductByCategoryQueryHandler(
     IDocumentSession session,
-    ILogger<GetProductByCategoryHandler> logger)
+    ILogger<GetProductByCategoryQueryHandler> logger)
     : IQueryHandler<GetProductByCategoryQuery, GetProductByCategoryResult>
 {
     public async Task<GetProductByCategoryResult> Handle(GetProductByCategoryQuery query,

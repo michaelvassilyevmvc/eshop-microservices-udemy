@@ -7,9 +7,9 @@ public record GetProductByIdQuery(Guid Id) : IQuery<GetProductByIdResult>;
 
 public record GetProductByIdResult(Product Product);
 
-public class GetProductByIdHandler(
+public class GetProductByIdQueryHandler(
     IDocumentSession session,
-    ILogger<GetProductByIdHandler> logger)
+    ILogger<GetProductByIdQueryHandler> logger)
     : IQueryHandler<GetProductByIdQuery, GetProductByIdResult>
 {
     public async Task<GetProductByIdResult> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
