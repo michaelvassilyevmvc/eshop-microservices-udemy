@@ -6,17 +6,29 @@ public record DeleteProductCommand(Guid Id) : ICommand<DeleteProductResult>;
 
 public record DeleteProductResult(bool IsSuccess);
 
-public class DeleteProductCommandHandler(IDocumentSession session, ILogger<DeleteProductCommandHandler> logger)
+public class DeleteProductCommandValidator : AbstractValidator<DeleteProductCommand>
+{
+    public DeleteProductCommandValidator()
+    {
+        RuleFor(command => command.Id)
+            .NotEmpty()
+            .WithMessage("Product ID is required");
+    }
+}
+
+public class DeleteProductCommandHandler(
+    IDocumentSession session)
     : ICommandHandler<DeleteProductCommand, DeleteProductResult>
 {
-    public async Task<DeleteProductResult> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
+    public async Task<DeleteProductResult> Handle(
+        DeleteProductCommand command,
+        CancellationToken cancellationToken)
     {
-        logger.LogInformation("DeleteProductCommandHandler.Handle called with {@Command}", command);
         var product = session.Query<Product>()
             .FirstOrDefault(p => p.Id == command.Id);
         if (product is null)
         {
-            throw new ProductNotFoundException();
+            throw new ProductNotFoundException(command.Id);
         }
 
         session.Delete(product);
