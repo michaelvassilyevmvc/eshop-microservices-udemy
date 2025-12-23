@@ -7,4 +7,10 @@ public static class DependencyInjection
         // services.AddCarter();
         return services;
     }
+
+    public static WebApplication UseApiServices(this WebApplication app)
+    {
+        
+        return app;
+    }
 }
