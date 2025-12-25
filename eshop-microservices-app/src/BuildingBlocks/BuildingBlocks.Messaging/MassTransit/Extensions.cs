@@ -23,7 +23,7 @@ public static class Extensions
 
             config.UsingRabbitMq((context, configurator) =>
             {
-                configurator.Host(new Uri(configuration["MessageBroker:UserName"]!), host =>
+                configurator.Host(new Uri(configuration["MessageBroker:Host"]!), host =>
                 {
                     host.Username(configuration["MessageBroker:UserName"]!);
                     host.Password(configuration["MessageBroker:Password"]!);
