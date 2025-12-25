@@ -24,5 +24,5 @@ public static class DependencyInjection
             ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
         });
         return app;
-    }
+    } 
 }

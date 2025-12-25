@@ -13,7 +13,7 @@ public class CachedBasketRepository(
         var cachedBasket = await cache.GetStringAsync(userName, cancellationToken);
         if (!string.IsNullOrEmpty(cachedBasket))
         {
-            return JsonSerializer.Deserialize<ShoppingCart>(cachedBasket);
+            return JsonSerializer.Deserialize<ShoppingCart>(cachedBasket)!;
         }
         var basket = await basketRepository.GetBasket(userName, cancellationToken);
         await cache.SetStringAsync(userName, JsonSerializer.Serialize(basket), cancellationToken);
